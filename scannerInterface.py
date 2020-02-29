@@ -11,8 +11,6 @@ import subdomainTakeoverTool
 #import htmlInjectionTool
 
 #modules to check for Medium level vulnerabilities
-#import brutePassTool
-#import corsTool
 import missSPF
 import dnsMisconf
 import httpHeaderInjection
@@ -25,7 +23,6 @@ import infoHTTP
 import serverInfoTool
 import impHeaders
 import xsrfCheck
-#import XXSS_Tool
 
 subprocess.check_output(['resize','-s','50','140']) #to resize the terminal screen in order to enhance the view
 os.system('clear') #clear all the previous junk on terminal
@@ -64,7 +61,7 @@ def update_progress(progress):
 
 #headstart to call the index ans enhance
 def fetchIndex():
-    print(Fore.YELLOW+Style.BRIGHT+"[+] Coded by : Gunisha Chhabra & Namrata yadav")
+    print(Fore.YELLOW+Style.BRIGHT+"[+] Coded by : Gunisha Chhabra & Gorang Joshi")
     print("[+] Scanner Version : 1.0"+Style.RESET_ALL)
     print(Fore.BLUE+"\n\nFetching Main Index"+Style.RESET_ALL)
     for i in range(100):
