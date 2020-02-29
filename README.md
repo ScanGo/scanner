@@ -1,11 +1,16 @@
 # scanGo
-
-scanGo is pyhton based CLI tool that checks for vulnerabilities using OSINT tools. This tool attracts any web application or domain belonging to a corporate or an individual to ensure security and robustness of their system. The aim of the software  product is to detect levels of vulnerabilities, such as high, medium and informative present in one web application.
+'''
+**scanGo** is pyhton based CLI tool that checks for vulnerabilities using OSINT tools. This tool attracts any web application or domain belonging to a corporate or an individual to ensure security and robustness of their system. The aim of the software  product is to detect levels of vulnerabilities, such as high, medium and informative present in one web application.
 
 The proposed system is based on proprietary python architecture which can independently work using the required python modules. Hence, no such external interface is required in order to execute the system. But, in order to gather all possible subdomains from a given domain, an open source python based tool, sublist3r, can be used and encapsulated with the scanner file. This will provide with more number of subdomains in comparatively less time.
+'''
 
 ![alt text](https://github.com/gunishachhabra/scanGo/blob/scanGo_sc/1.png)
-![alt text](https://github.com/gunishachhabra/scanGo/blob/scanGo_sc/2.png)
+
+# To install
+> git clone https://github.com/gunishachhabra/scanGo.git 
+
+## Current version of scanGo supports ''' python3 '''
 
 # Current Features 
 
@@ -20,6 +25,7 @@ The said module checks for presence of SQL Injection Vulnerability. Injection fl
 
 ### subdomainTakeverTool 
 A module to check for subdomain takeover. The basic premise of a subdomain takeover is a host that points to a particular service not currently in use, which an adversary can use to serve content on the vulnerable subdomain by setting up an account on the third-party service.
+![alt text](https://github.com/gunishachhabra/scanGo/blob/scanGo_sc/2.png)
 
 ### SecurityHeadersCheck_Tool 
 This is the module for informative level vulnerability to check for X-XSS Protection Value which when not properly enabled leads to Security misconfiguration. Security misconfiguration is the most commonly seen issue. This is commonly a result of insecure default configurations, incomplete or ad hoc configurations, open cloud storage, misconfigured HTTP headers, and verbose error messages containing sensitive information. Not only must all operating systems, frameworks, libraries, and applications be securely configured, but they must be patched/upgraded in a timely fashion. It also checks for x-frame-options, Content Security Policy (CSP), HTTP Strict Transport Security (HSTS) Headers.
