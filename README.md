@@ -48,6 +48,10 @@ This tool checks for the internal information disclosure in HTTP Headers. HTTP h
 ### XSRF_check
 Cross-site request forgery, also known as one-click attack or session riding and abbreviated as CSRF or XSRF, is a type of exploit of a website where a user is tricked into submitting data that he/she never intended to do.  Cross-site request forgery can’t be detected easily by an automatic tool, as this depends on the attacker’s interest to sabotage a victim. Hence this tool performs basic checks that prevent a webpage against CSRF attack. This is done by checking CSRF tokens for a webpage and looking at the cookie attributes, SameSite and HTTPOnly, that help mitigate this attack.
 
+# Usage
+> Inside the scanGo directory enter the below command : 
+```python3 scannerInterface.py ```
+
 # Credits
 [Sublit3r](https://github.com/aboul3la/Sublist3r) - The python tool designed to enumerate subdomains of websites.
 
