@@ -8,9 +8,8 @@ The proposed system is based on proprietary python architecture which can indepe
 ![alt text](https://github.com/gunishachhabra/scanGo/blob/scanGo_sc/1.png)
 
 # To install
-> git clone https://github.com/gunishachhabra/scanGo.git 
-
-## Current version of scanGo supports ``` python3 ```
+```git clone https://github.com/gunishachhabra/scanGo.git```
+> This version of scanGo supports **python 3**
 
 # Current Features 
 
