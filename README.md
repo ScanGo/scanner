@@ -4,6 +4,9 @@ scanGo is pyhton based CLI tool that checks for vulnerabilities using OSINT tool
 
 The proposed system is based on proprietary python architecture which can independently work using the required python modules. Hence, no such external interface is required in order to execute the system. But, in order to gather all possible subdomains from a given domain, an open source python based tool, sublist3r, can be used and encapsulated with the scanner file. This will provide with more number of subdomains in comparatively less time.
 
+![alt text](https://github.com/gunishachhabra/scanGo/blob/scanGo_sc/1.png)
+![alt text](https://github.com/gunishachhabra/scanGo/blob/scanGo_sc/2.png)
+
 # Current Features 
 
 ### openPortsDetectionTool 
