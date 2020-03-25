@@ -1,6 +1,6 @@
 # scanGo
 
-**scanGo** is pyhton based CLI tool that checks for vulnerabilities using OSINT tools. This tool attracts any web application or domain belonging to a corporate or an individual to ensure security and robustness of their system. The aim of the software  product is to detect levels of vulnerabilities, such as high, medium and informative present in one web application.
+**scanGo** is python based CLI tool that checks for vulnerabilities using OSINT tools. This tool attracts any web application or domain belonging to a corporate or an individual to ensure security and robustness of their system. The aim of the software  product is to detect levels of vulnerabilities, such as high, medium and informative present in one web application.
 
 The proposed system is based on proprietary python architecture which can independently work using the required python modules. Hence, no such external interface is required in order to execute the system. But, in order to gather all possible subdomains from a given domain, an open source python based tool, sublist3r, can be used and encapsulated with the scanner file. This will provide with more number of subdomains in comparatively less time.
 
