@@ -16,7 +16,6 @@ import subdomainTakeoverTool
 import missSPF
 import dnsMisconf
 import httpHeaderInjection
-import insecureHTTP
 import DirectoryListing
 
 #modules to check for informative vulnerabilities
@@ -247,18 +246,6 @@ def SecondaryOption(option):
                 httpHeaderInjection.httpHeaderInj() #redirecting to Header Injection tool
                 SecondaryOption(1)
             elif optionS==4:
-                actionCall("\n\nCalling function to scan Insecure HTTP Usage.")
-                print(Fore.RED+Style.DIM+"""
-                ██╗███╗   ██╗███████╗███████╗ ██████╗██╗   ██╗██████╗ ███████╗    ██╗  ██╗████████╗████████╗██████╗ 
-                ██║████╗  ██║██╔════╝██╔════╝██╔════╝██║   ██║██╔══██╗██╔════╝    ██║  ██║╚══██╔══╝╚══██╔══╝██╔══██╗
-                ██║██╔██╗ ██║███████╗█████╗  ██║     ██║   ██║██████╔╝█████╗      ███████║   ██║      ██║   ██████╔╝
-                ██║██║╚██╗██║╚════██║██╔══╝  ██║     ██║   ██║██╔══██╗██╔══╝      ██╔══██║   ██║      ██║   ██╔═══╝ 
-                ██║██║ ╚████║███████║███████╗╚██████╗╚██████╔╝██║  ██║███████╗    ██║  ██║   ██║      ██║   ██║     
-                ╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝    ╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚═╝
-                                                                                          \n\n"""+Style.RESET_ALL)
-                insecureHTTP.insecureHTTP() #redirecting to Insecure HTTP Check tool
-                SecondaryOption(1)
-            if optionS==5:
                 actionCall("\n\nCalling Function To Scan For Directory Listing")
                 print(Fore.RED+Style.DIM+"""
                             ██████╗ ██╗██████╗ ███████╗ ██████╗████████╗ ██████╗ ██████╗ ██╗   ██╗
@@ -276,10 +263,10 @@ def SecondaryOption(option):
                                                                                 \n\n"""+Style.RESET_ALL)
                 DirectoryListing.directoryListing() #redirecting to Directory Listing Check Tool
                 SecondaryOption(2)
-            elif optionS==6:
+            elif optionS==5:
                 print("Going back to PrimaryOptions.")
                 PrimaryOptions()
-            elif optionS==7:
+            elif optionS==6:
                 print(Fore.WHITE+"\n[.] You Have Called To Terminate The Program")
                 actionCall("Terminating Execution")
                 sys.exit() #Exit Program
