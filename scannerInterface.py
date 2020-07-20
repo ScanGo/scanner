@@ -5,16 +5,19 @@ import sys
 import subprocess
 #modules to check for high level vulnerabilities
 import sqlInjectionTool
-#import xssTool
+import xssTool
 import subdomainTakeoverTool
 
 #import htmlInjectionTool
 
 #modules to check for Medium level vulnerabilities
+#import brutePassTool
+#import corsTool
 import missSPF
 import dnsMisconf
 import httpHeaderInjection
-
+import insecureHTTP
+import DirectoryListing
 
 #modules to check for informative vulnerabilities
 import openPortsDetectionTool
@@ -23,6 +26,10 @@ import infoHTTP
 import serverInfoTool
 import impHeaders
 import xsrfCheck
+import tlsCheck
+import FileInclusion
+import network
+#import XXSS_Tool
 
 subprocess.check_output(['resize','-s','50','140']) #to resize the terminal screen in order to enhance the view
 os.system('clear') #clear all the previous junk on terminal
@@ -61,8 +68,8 @@ def update_progress(progress):
 
 #headstart to call the index ans enhance
 def fetchIndex():
-    print(Fore.YELLOW+Style.BRIGHT+"[+] Coded by : Gunisha Chhabra & Gorang Joshi")
-    print("[+] Scanner Version : 1.0"+Style.RESET_ALL)
+    print(Fore.YELLOW+Style.BRIGHT+"[+] Coded by : Gunisha Chhabra & Namrata Yadav")
+    print("[+] Scanner Version : 1.1"+Style.RESET_ALL)
     print(Fore.BLUE+"\n\nFetching Main Index"+Style.RESET_ALL)
     for i in range(100):
         time.sleep(0.01)
@@ -111,8 +118,9 @@ def SecondaryOption(option):
         print("%s\nList Of High Severity Vulnerabilities That Can Be Detected %s \n"%(Fore.WHITE,Style.RESET_ALL))
         print(Fore.GREEN+"[1] SQL Injection (Error Based)")
         print("[2] Subdomain Takeover")
-        print("[3] Go Back")
-        print(Fore.BLUE+"[4] Exit"+Fore.RESET)
+        print("[3] XXS Reflected")
+        print("[4] Go Back")
+        print(Fore.BLUE+"[5] Exit"+Fore.RESET)
         try:
             optionS=int(input(Fore.GREEN+"\n>>Enter Your Choice : "+Fore.RESET))
             if optionS==1:
@@ -145,9 +153,27 @@ def SecondaryOption(option):
                 subdomainTakeoverTool.subdomainFunction() #redirecting to subdomain Takeover tool
                 SecondaryOption(1)
             elif optionS==3:
+                actionCall("\n\nCalling function to scan for XSS.")
+                print(Fore.RED+Style.DIM+"""
+                             ██████╗██████╗  ██████╗ ███████╗███████╗      ███████╗██╗████████╗███████╗    
+                            ██╔════╝██╔══██╗██╔═══██╗██╔════╝██╔════╝      ██╔════╝██║╚══██╔══╝██╔════╝    
+                            ██║     ██████╔╝██║   ██║███████╗███████╗█████╗███████╗██║   ██║   █████╗      
+                            ██║     ██╔══██╗██║   ██║╚════██║╚════██║╚════╝╚════██║██║   ██║   ██╔══╝      
+                            ╚██████╗██║  ██║╚██████╔╝███████║███████║      ███████║██║   ██║   ███████╗    
+                             ╚═════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚══════╝      ╚══════╝╚═╝   ╚═╝   ╚══════╝    
+                                ███████╗ ██████╗██████╗ ██╗██████╗ ████████╗██╗███╗   ██╗ ██████╗              
+                                ██╔════╝██╔════╝██╔══██╗██║██╔══██╗╚══██╔══╝██║████╗  ██║██╔════╝              
+                                ███████╗██║     ██████╔╝██║██████╔╝   ██║   ██║██╔██╗ ██║██║  ███╗             
+                                ╚════██║██║     ██╔══██╗██║██╔═══╝    ██║   ██║██║╚██╗██║██║   ██║             
+                                ███████║╚██████╗██║  ██║██║██║        ██║   ██║██║ ╚████║╚██████╔╝             
+                                ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ╚═╝╚═╝  ╚═══╝ ╚═════╝
+\n\n"""+Style.RESET_ALL)
+                xssTool.xssCheck() #redirecting to subdomain Takeover tool
+                SecondaryOption(1)
+            elif optionS==4:
                 print(Fore.BLUE+"[] Going back to PrimaryOptions."+Fore.RESET) #redirecting to primary options
                 PrimaryOptions()
-            elif optionS==4:
+            elif optionS==5:
                 print(Fore.WHITE+"\n[.] You Have Called To Terminate The Program"+Fore.RESET)
                 actionCall("Terminating Execution")
                 sys.exit() #exit application
@@ -165,8 +191,10 @@ def SecondaryOption(option):
         print(Fore.GREEN+"[1] Missing SPF")
         print("[2] DNS Misconfiguration")
         print("[3] HTTP Header Injection")
-        print("[4] Go Back")
-        print(Fore.BLUE+"[5] Exit")
+        print("[4] Insecure HTTP Usage")
+        print("[5] Directory Listing")
+        print("[6] Go Back")
+        print(Fore.BLUE+"[7] Exit")
         try:
             optionS=int(input(Fore.GREEN+"\n>> Enter Your Choice : "+Fore.RESET))
             if optionS==1:
@@ -219,9 +247,39 @@ def SecondaryOption(option):
                 httpHeaderInjection.httpHeaderInj() #redirecting to Header Injection tool
                 SecondaryOption(1)
             elif optionS==4:
+                actionCall("\n\nCalling function to scan Insecure HTTP Usage.")
+                print(Fore.RED+Style.DIM+"""
+                ██╗███╗   ██╗███████╗███████╗ ██████╗██╗   ██╗██████╗ ███████╗    ██╗  ██╗████████╗████████╗██████╗ 
+                ██║████╗  ██║██╔════╝██╔════╝██╔════╝██║   ██║██╔══██╗██╔════╝    ██║  ██║╚══██╔══╝╚══██╔══╝██╔══██╗
+                ██║██╔██╗ ██║███████╗█████╗  ██║     ██║   ██║██████╔╝█████╗      ███████║   ██║      ██║   ██████╔╝
+                ██║██║╚██╗██║╚════██║██╔══╝  ██║     ██║   ██║██╔══██╗██╔══╝      ██╔══██║   ██║      ██║   ██╔═══╝ 
+                ██║██║ ╚████║███████║███████╗╚██████╗╚██████╔╝██║  ██║███████╗    ██║  ██║   ██║      ██║   ██║     
+                ╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝    ╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚═╝
+                                                                                          \n\n"""+Style.RESET_ALL)
+                insecureHTTP.insecureHTTP() #redirecting to Insecure HTTP Check tool
+                SecondaryOption(1)
+            if optionS==5:
+                actionCall("\n\nCalling Function To Scan For Directory Listing")
+                print(Fore.RED+Style.DIM+"""
+                            ██████╗ ██╗██████╗ ███████╗ ██████╗████████╗ ██████╗ ██████╗ ██╗   ██╗
+                            ██╔══██╗██║██╔══██╗██╔════╝██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗╚██╗ ██╔╝
+                            ██║  ██║██║██████╔╝█████╗  ██║        ██║   ██║   ██║██████╔╝ ╚████╔╝ 
+                            ██║  ██║██║██╔══██╗██╔══╝  ██║        ██║   ██║   ██║██╔══██╗  ╚██╔╝  
+                            ██████╔╝██║██║  ██║███████╗╚██████╗   ██║   ╚██████╔╝██║  ██║   ██║   
+                            ╚═════╝ ╚═╝╚═╝  ╚═╝╚══════╝ ╚═════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
+                                    ██╗     ██╗███████╗████████╗██╗███╗   ██╗ ██████╗                     
+                                    ██║     ██║██╔════╝╚══██╔══╝██║████╗  ██║██╔════╝                     
+                                    ██║     ██║███████╗   ██║   ██║██╔██╗ ██║██║  ███╗                    
+                                    ██║     ██║╚════██║   ██║   ██║██║╚██╗██║██║   ██║                    
+                                    ███████╗██║███████║   ██║   ██║██║ ╚████║╚██████╔╝                    
+                                    ╚══════╝╚═╝╚══════╝   ╚═╝   ╚═╝╚═╝  ╚═══╝ ╚═════╝   
+                                                                                \n\n"""+Style.RESET_ALL)
+                DirectoryListing.directoryListing() #redirecting to Directory Listing Check Tool
+                SecondaryOption(2)
+            elif optionS==6:
                 print("Going back to PrimaryOptions.")
                 PrimaryOptions()
-            elif optionS==5:
+            elif optionS==7:
                 print(Fore.WHITE+"\n[.] You Have Called To Terminate The Program")
                 actionCall("Terminating Execution")
                 sys.exit() #Exit Program
@@ -242,8 +300,11 @@ def SecondaryOption(option):
         print("[3] Server Information Disclosure")
         print("[4] Check For Important Security Headers")
         print("[5] Protection Against Cross-Site Request Forgery")
-        print(Fore.BLUE+"[6] Go back")
-        print(Fore.BLUE+"[7] Exit")
+        print("[6] File Upload Variables Detection")
+        print("[7] Network Description")
+        print("[8] TLS Information")
+        print(Fore.BLUE+"[9] Go back")
+        print(Fore.BLUE+"[0] Exit")
         try:
             optionS=int(input(Fore.GREEN+"\n>> Enter Your Choice : "+Fore.RESET))
             if optionS==1:
@@ -348,9 +409,57 @@ def SecondaryOption(option):
                 xsrfCheck.xsrfInfo() #Redirecting to X-XSS Protection Value Detection Tool
                 SecondaryOption(3)
             elif optionS==6:
+                actionCall("\n\nCalling Function To check variables for File Upload")
+                print(Fore.RED+Style.DIM+"""
+                        ███████╗██╗██╗     ███████╗    ██╗   ██╗██████╗ ██╗      ██████╗  █████╗ ██████╗ 
+                        ██╔════╝██║██║     ██╔════╝    ██║   ██║██╔══██╗██║     ██╔═══██╗██╔══██╗██╔══██╗
+                        █████╗  ██║██║     █████╗      ██║   ██║██████╔╝██║     ██║   ██║███████║██║  ██║
+                        ██╔══╝  ██║██║     ██╔══╝      ██║   ██║██╔═══╝ ██║     ██║   ██║██╔══██║██║  ██║
+                        ██║     ██║███████╗███████╗    ╚██████╔╝██║     ███████╗╚██████╔╝██║  ██║██████╔╝
+                        ╚═╝     ╚═╝╚══════╝╚══════╝     ╚═════╝ ╚═╝     ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ 
+\n\n"""+Style.RESET_ALL)                                                                                                                   
+                FileInclusion.fileInclusionCheck() #Redirecting to File Variable Detetction Tool
+                SecondaryOption(3)
+            elif optionS==7:
+                actionCall("\n\nCalling Function To get Network Description")
+                print(Fore.RED+Style.DIM+"""
+                                ███╗   ██╗███████╗████████╗██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗                    
+                                ████╗  ██║██╔════╝╚══██╔══╝██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝                    
+                                ██╔██╗ ██║█████╗     ██║   ██║ █╗ ██║██║   ██║██████╔╝█████╔╝                     
+                                ██║╚██╗██║██╔══╝     ██║   ██║███╗██║██║   ██║██╔══██╗██╔═██╗                     
+                                ██║ ╚████║███████╗   ██║   ╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗                    
+                                ╚═╝  ╚═══╝╚══════╝   ╚═╝    ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝                    
+                    ██████╗ ███████╗███████╗ ██████╗██████╗ ██╗██████╗ ████████╗██╗ ██████╗ ███╗   ██╗
+                    ██╔══██╗██╔════╝██╔════╝██╔════╝██╔══██╗██║██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║
+                    ██║  ██║█████╗  ███████╗██║     ██████╔╝██║██████╔╝   ██║   ██║██║   ██║██╔██╗ ██║
+                    ██║  ██║██╔══╝  ╚════██║██║     ██╔══██╗██║██╔═══╝    ██║   ██║██║   ██║██║╚██╗██║
+                    ██████╔╝███████╗███████║╚██████╗██║  ██║██║██║        ██║   ██║╚██████╔╝██║ ╚████║
+                    ╚═════╝ ╚══════╝╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+\n\n"""+Style.RESET_ALL)                                                                                                                   
+                network.networkEnum() #Redirecting to X-XSS Protection Value Detection Tool
+                SecondaryOption(3)
+            elif optionS==8:
+                actionCall("\n\nCalling Function To Check TLS Version")
+                print(Fore.RED+Style.DIM+"""
+                    ████████╗██╗     ███████╗    ██╗   ██╗███████╗██████╗ ███████╗██╗ ██████╗ ███╗   ██╗
+                    ╚══██╔══╝██║     ██╔════╝    ██║   ██║██╔════╝██╔══██╗██╔════╝██║██╔═══██╗████╗  ██║
+                       ██║   ██║     ███████╗    ██║   ██║█████╗  ██████╔╝███████╗██║██║   ██║██╔██╗ ██║
+                       ██║   ██║     ╚════██║    ╚██╗ ██╔╝██╔══╝  ██╔══██╗╚════██║██║██║   ██║██║╚██╗██║
+                       ██║   ███████╗███████║     ╚████╔╝ ███████╗██║  ██║███████║██║╚██████╔╝██║ ╚████║
+                       ╚═╝   ╚══════╝╚══════╝      ╚═══╝  ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+                                             ██████╗██╗  ██╗███████╗ ██████╗██╗  ██╗                                            
+                                            ██╔════╝██║  ██║██╔════╝██╔════╝██║ ██╔╝                                            
+                                            ██║     ███████║█████╗  ██║     █████╔╝                                             
+                                            ██║     ██╔══██║██╔══╝  ██║     ██╔═██╗                                             
+                                            ╚██████╗██║  ██║███████╗╚██████╗██║  ██╗                                            
+                                             ╚═════╝╚═╝  ╚═╝╚══════╝ ╚═════╝╚═╝  ╚═╝
+\n\n"""+Style.RESET_ALL)                                                                                                                   
+                tlsCheck.TLScheck() #Redirecting to TLS Version Check Tool
+                SecondaryOption(3)
+            elif optionS==9:
                 print("Going Back To PrimaryOptions.")
                 PrimaryOptions()
-            elif optionS==7:
+            elif optionS==0:
                 print(Fore.WHITE+"\n[.] You Have Called To Terminate The Program")
                 actionCall("Terminating Execution")
                 sys.exit() #Exit Program
