@@ -210,6 +210,61 @@ def subdomCheck(subdomainList):
         #table = AsciiTable(resultTable) #To print in table form
         #print (table.table,"\n")
 
+def subdomCheck1(subdomainList):
+    #print(dashes)
+    for subdom in subdomainList:
+        Sdictionary={}
+        ResponseStatus=0
+        cname="NA"
+        Sdictionary.update({"SUBDOMAIN NAME":subdom})
+        ip=1
+        try:
+            request = http.client.HTTPConnection(subdom)
+            #print(request)
+            ipAddress=socket.gethostbyname(subdom)
+            Sdictionary.update({"IP ADDRESS":ipAddress})
+            ip=1
+        except Exception:
+            Sdictionary.update({"IP ADDRESS":"Unable to connect"})
+            ip=0
+        if ip==1:
+            cname=cnameFetch(subdom)
+            Sdictionary.update({"CNAME":cname})
+        #print(Sdictionary)
+        url=""
+        if ip==1:
+            try:
+                page = urllib.request.urlopen("https://"+subdom,timeout=5)
+                url="https://"+subdom
+            except urllib.error.URLError:
+                page = urllib.request.urlopen("http://"+subdom,timeout=5)
+                url="http://"+subdom
+            ResponseStatus=page.getcode()
+            Sdictionary.update({"Responce Code":ResponseStatus})
+            sourcecode = page.read()    
+            sourcecod=sourcecode.splitlines()
+            vuln=False
+            for line in sourcecod:
+                if isinstance(line,str):
+                    line.encode()
+            for fingerprint in fingerprints:
+                if re.search(fingerprint.encode(),line,re.IGNORECASE):
+                    #print("VULNERABLE")
+                    Sdictionary.update({"Vulnerable?":"VULNERABLE"})
+                    vuln=True
+                    break
+            if vuln==False:
+                #print("NOT VULNERABLE")
+                Sdictionary.update({"Vulnerable?":"NOT VULNERABLE"})
+        if "Vulnerable?" not in Sdictionary:
+            Sdictionary.update({"Vulnable?":"CAN NOT SAY!"})
+        #print (Sdictionary)
+        for key,value in Sdictionary.items():
+            if key == "SUBDOMAIN NAME":
+                print(Fore.WHITE+dashes)
+            print(key,":",value)
+        print("\n")    
+                       
 def subdomainFunction():
     subdomains=[]
     print(Fore.WHITE+"[][] Please enter the domain in a format "+Fore.YELLOW+"<domainName>.com (example : abc.com)"+Fore.WHITE+" [][]"+Style.RESET_ALL)
@@ -225,5 +280,6 @@ def subdomainFunction():
         crt_sh(domain)
         finalSubdomains=filterSubdomains(domain)
     print(Fore.CYAN+"\n\n ALL POSSIBLE SUBDOAMINS GATHERED SUCCESSFULY \n\n"+Style.RESET_ALL)
-    subdomCheck(finalSubdomains)
+    subdomCheck1(finalSubdomains)
     goBack()
+#subdomainFunction()
