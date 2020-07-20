@@ -11,7 +11,7 @@ The proposed system is based on proprietary python architecture which can indepe
 ```git clone https://github.com/gunishachhabra/scanGo.git```
 > This version of scanGo supports **python 3**
 
-# Current Features 
+# Features 
 
 ### openPortsDetectionTool 
 This module detects for the informative level of vulnerability where in possible open ports are detected and displayed. It not only presents the open ports but also the services offered by them.
