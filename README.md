@@ -55,3 +55,6 @@ Cross-site request forgery, also known as one-click attack or session riding and
 # Credits
 [Sublit3r](https://github.com/aboul3la/Sublist3r) - The python tool designed to enumerate subdomains of websites.
 
+# Author
+> Gorang Joshi & Gunisha Chhabra
+
